@@ -1,9 +1,95 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My GitHub Website</title>
-  </head>
-  <body>
-    <h1>Hello, World!</h1>
-  </head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pietro Boccalatte</title>
+<meta name="description" content="Pietro Boccalatte — IB student and engineer in training, exploring mechanical, mechatronic, and electrical engineering.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="monogram" aria-label="Home">PB</a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html" class="active">Home</a>
+      <a href="about.html">About</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="contact.html" class="nav-cta">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!--
+  The banner below glows blue by default and shifts to a red glow
+  that follows your cursor when you hover over it. To change the
+  colors or size of the glow, edit the --hero-glow-* variables at
+  the top of style.css — nothing here needs to change.
+-->
+<section class="hero">
+  <div class="hero-inner">
+    <p class="eyebrow">Aspiring Engineer</p>
+    <h1 class="hero-name">Pietro Boccalatte</h1>
+    <p class="hero-tagline">IB DP Student</p>
+    <div class="hero-actions">
+      <a href="about.html" class="btn btn-primary">About Me</a>
+      <a href="contact.html" class="btn btn-outline">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="nameplate" role="group" aria-label="Key facts">
+    <div class="plate-item">
+      <span class="plate-label">School</span>
+      <span class="plate-value">Sevenoaks School</span>
+    </div>
+    <div class="plate-item">
+      <span class="plate-label">Experience</span>
+      <span class="plate-value">Intern at Araya.Inc</span>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner">
+    <p class="section-kicker">Highlights</p>
+    <h2>A few things worth knowing</h2>
+
+    <div class="card-grid">
+      <article class="feature-card reveal">
+        <span class="card-tag">Robotics</span>
+        <h3>Internship at Araya.Inc</h3>
+        <p>Worked at Araya for 1 month developing BCI Software and Designing AI powered robots for a conference</p>
+      </article>
+
+      <article class="feature-card reveal">
+        <span class="card-tag">Engineering Competition</span>
+        <h3>Best in Japan — MIT EWB Competition</h3>
+        <p>Team win in the 2026 MIT Engineers Without Borders competition, run via AlgoEd.</p>
+      </article>
+
+      <article class="feature-card reveal">
+        <span class="card-tag">Academics</span>
+        <h3>National-level recognition</h3>
+        <p>Multiple national awards across academic challenges, including three years of IAAC National Awards.</p>
+      </article>
+
+    <div class="section-footer-link">
+      <a href="achievements.html">View full achievements <span class="arrow">&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer on-ivory">
+  <p>&copy; 2026 Pietro Boccalatte.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
 </html>
