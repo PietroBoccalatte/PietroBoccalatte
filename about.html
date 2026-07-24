@@ -34,10 +34,10 @@
 </section>
 
 <section class="section about">
-  <div class="section-inner about-grid">
+  <div class="section-inner about-grid reveal">
     <div class="about-photo">
-      <div class="photo-placeholder" aria-label="Add a photo here">
-        <span>Add photo</span>
+      <div class="photo-placeholder" aria-label="profile.jpg">
+        <img src="profile.jpg" alt="A Photo of Me" width="500" height="370">
       </div>
     </div>
     <div class="about-copy">
@@ -46,38 +46,6 @@
     </div>
   </div>
 </section>
-
-
-<section id="education" class="section education">
-  <div class="section-inner">
-    <p class="section-kicker">Education</p>
-    <h2>Academic path</h2>
-
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <span class="timeline-date">2026 —</span>
-          <h3>Sevenoaks School</h3>
-          <p class="timeline-meta">Academic Scholarship &middot; IB Diploma Programme</p>
-          <p>Higher Level: Maths (Analysis &amp; Approaches), Physics &amp Chemistry.<br>
-          Standard Level: Philosophy, English &amp French B.</p>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="timeline-marker"></div>
-        <div class="timeline-content">
-          <span class="timeline-date">2016 – 2026</span>
-          <h3>The British School in Tokyo</h3>
-          <p class="timeline-meta">IGCSEs &amp; GCSEs &middot; results pending</p>
-          <p>Maths, Computer Science, Physics, Chemistry, Biology, Economics, History, English Language and Literature, French and Italian.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 
 <section id="experience" class="section experience">
   <div class="section-inner">
@@ -95,6 +63,21 @@
         <h3>Araya Inc.</h3>
         <span class="achieve-year">2026</span>
         <p>One-month paid internship working in Research and Development on AI powered robots and Neurotech Platforms.</p>
+
+        
+        <details class="achieve-expand">
+          <summary>
+            <span class="chevron" aria-hidden="true">&#9662;</span>
+            <span class="label-closed">More</span>
+            <span class="label-open">Less</span>
+          </summary>
+          <div class="achieve-expand-body">
+            <div class="photo-placeholder small" aria-label="Add a photo here">
+              <span>Add photo</span>
+            </div>
+            <p><!-- Write additional detail about the Araya internship here --></p>
+          </div>
+        </details>
       </article>
 
       <article class="achieve-card accent-purple reveal">
@@ -107,6 +90,20 @@
         <h3>BST Model UN — Secretary-General</h3>
         <span class="achieve-year">2025–26</span>
         <p>Led the school's Model UN conference, after two prior years chairing committees.</p>
+
+        <details class="achieve-expand">
+          <summary>
+            <span class="chevron" aria-hidden="true">&#9662;</span>
+            <span class="label-closed">Add more detail</span>
+            <span class="label-open">Show less</span>
+          </summary>
+          <div class="achieve-expand-body">
+            <div class="photo-placeholder small" aria-label="Add a photo here">
+              <span>Add photo</span>
+            </div>
+            <p><!-- Write additional detail about being Secretary-General here --></p>
+          </div>
+        </details>
       </article>
 
       <article class="achieve-card accent-purple reveal">
@@ -117,11 +114,27 @@
           <span class="result-badge result-role">Leadership</span>
         </div>
         <h3>VEX Robotics Lead Engineer</h3>
-        <span class="achieve-year">Current</span>
-        <p></p>
+        <span class="achieve-year">2025–26</span>
+        <p>Lead a team building a competitive VEX robot placing 5th in the Japan Cup.</p>
+
+        <details class="achieve-expand">
+          <summary>
+            <span class="chevron" aria-hidden="true">&#9662;</span>
+            <span class="label-closed">More</span>
+            <span class="label-open">Less</span>
+          </summary>
+          <div class="achieve-expand-body">
+            <div class="photo-placeholder small" aria-label="Add a photo here">
+              <span>Add photo</span>
+            </div>
+            <p>We built a mobile robot which had to move polyherdal objects to different heights and locations as well as collecting the objects from dispensers and the ground. Additionally the robot also had the capability to disrupt the scoring of oher teams.</p>
+          </div>
+        </details>
       </article>
     </div>
 
+    <!-- Optional one-line summary shown under the cards above.
+         Leave empty (or delete this <p> entirely) if not needed. -->
     <p class="achieve-more"></p>
 
     <div class="section-footer-link">
@@ -129,6 +142,39 @@
     </div>
   </div>
 </section>
+
+<section id="education" class="section education">
+  <div class="section-inner">
+    <p class="section-kicker">Education</p>
+    <h2>Academic path</h2>
+
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">2026 —</span>
+          <h3>Sevenoaks School</h3>
+          <p class="timeline-meta">Academic Scholarship &middot; IB Diploma Programme</p>
+          <p>Higher Level: Maths (Analysis &amp; Approaches), Physics &amp; Chemistry.<br>
+          Standard Level: Philosophy, English &amp; French B.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+          <span class="timeline-date">2016 – 2026</span>
+          <h3>The British School in Tokyo</h3>
+          <p class="timeline-meta">IGCSEs &amp; GCSEs &middot; results pending</p>
+          <p>Maths, Computer Science, Physics, Chemistry, Biology, Economics, History, English Language and Literature, French and Italian.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 
 <footer class="site-footer on-ivory">
   <p>&copy; 2026 Pietro Boccalatte.</p>
