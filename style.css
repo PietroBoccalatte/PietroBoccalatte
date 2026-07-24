@@ -1,25 +1,41 @@
-/* ============================================
-   TOKENS
-   ============================================ */
+
 :root {
-  --ivory: #F7F4EC;
-  --ivory-deep: #EFEAE0;
-  --card: #FCFAF5;
-  --purple: #3C2A5C;
-  --purple-deep: #271A3D;
-  --green: #3E6B4F;
-  --blue: #43669C;
-  --ink: #241F2E;
-  --ink-soft: #5C5566;
-  --line: #DCD5C6;
+  /* --- Core colors --- */
+  --ivory: #F7F4EC;         /* main page background */
+  --ivory-deep: #EFEAE0;    /* alternate section background (e.g. Education) */
+  --card: #FCFAF5;          /* background used inside cards */
+  --purple: #46375f;        /* primary accent — buttons, links, headings */
+  --purple-deep: #271A3D;   /* darker accent — hover states, footer, nameplate */
+  --green: #3E6B4F;         /* secondary accent color */
+  --blue: #43669C;          /* tertiary accent color + default hero glow */
+  --ink: #241F2E;           /* main body text color */
+  --ink-soft: #5C5566;      /* muted/secondary text color */
+  --line: #DCD5C6;          /* borders and divider lines */
 
-  
-  --font-display: "Fraunces", serif;
-  --font-body: "Inter", sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  /* --- Homepage banner hover-glow colors ---
+     The hero banner on index.html glows blue by default and
+     shifts to red (following the cursor) on hover.
+     Change these two lines to use different colors. */
+  --hero-glow-default: rgba(67, 103, 156, 0);  /* blue glow — shown normally */
+  --hero-glow-hover: rgba(196, 64, 58, 0.30);     /* red glow — shown on hover */
+  --hero-glow-size: 420px;                        /* size of the glow circle */
 
-  --radius: 4px;
-  --max-width: 1080px;
+  /* --- Fonts --- */
+  --font-display: "Fraunces", serif;   /* headings */
+  --font-body: "Inter", sans-serif;    /* paragraphs, UI text */
+  --font-mono: "JetBrains Mono", monospace; /* labels, tags, dates */
+
+  /* --- Layout --- */
+  --radius: 4px;         /* corner rounding used everywhere */
+  --max-width: 1080px;   /* how wide the page content can get */
+
+  /* --- Animation timing ---
+     These control every hover and scroll-in animation on the site.
+     Increase for slower/dreamier motion, decrease for snappier. */
+  --transition-fast: 0.2s ease;    /* quick hover feedback (links, icons) */
+  --transition-medium: 0.35s ease; /* card hover lift, buttons */
+  --transition-slow: 0.6s ease;    /* scroll-reveal fade-in */
+  --hover-lift: -4px;              /* how far cards/buttons rise on hover */
 }
 
 * { box-sizing: border-box; }
@@ -73,14 +89,34 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   outline-offset: 3px;
 }
 
+/* Respect people who've asked their OS/browser to reduce motion —
+   turns every transition and animation on the site into an instant
+   change instead of an animated one. Don't remove this block. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { animation: none !important; transition: none !important; }
 }
 
-/* ============================================
+/* ================================================================
+   SCROLL REVEAL
+   ----------------------------------------------------------------
+   Any element with class="reveal" starts invisible and slightly
+   lowered, then fades/rises into place the first time it scrolls
+   into view (see script.js for the logic that adds "is-visible").
+   ================================================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ================================================================
    HEADER / NAV
-   ============================================ */
+   ================================================================ */
 .site-header {
   position: sticky;
   top: 0;
@@ -113,6 +149,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   justify-content: center;
   text-decoration: none;
   letter-spacing: 0.02em;
+  transition: transform var(--transition-fast), background var(--transition-fast);
+}
+.monogram:hover {
+  transform: scale(1.08);
+  background: var(--purple-deep);
 }
 
 .main-nav {
@@ -122,22 +163,43 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .main-nav a {
+  position: relative;
   text-decoration: none;
   font-size: 14px;
   font-weight: 500;
   color: var(--ink-soft);
-  transition: color 0.15s ease;
+  transition: color var(--transition-fast);
+}
+/* Animated underline that grows in from the left on hover */
+.main-nav a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1.5px;
+  background: var(--purple);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-fast);
 }
 .main-nav a:hover { color: var(--purple); }
+.main-nav a:hover::after { transform: scaleX(1); }
 .main-nav a.active { color: var(--purple); }
+.main-nav a.active::after { transform: scaleX(1); }
 
 .nav-cta {
   background: var(--purple);
   color: var(--ivory) !important;
   padding: 8px 16px;
   border-radius: var(--radius);
+  transition: background var(--transition-fast), transform var(--transition-fast);
 }
-.nav-cta:hover { background: var(--purple-deep); color: var(--ivory) !important; }
+.nav-cta:hover {
+  background: var(--purple-deep);
+  color: var(--ivory) !important;
+  transform: translateY(var(--hover-lift));
+}
 
 .nav-toggle {
   display: none;
@@ -154,10 +216,57 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background: var(--purple-deep);
 }
 
-/* ============================================
-   HERO (home page)
-   ============================================ */
-.hero { padding: 88px 0 0 0; }
+/* ================================================================
+   HERO (homepage banner)
+   ----------------------------------------------------------------
+   The banner glows blue by default. On hover, a red gradient
+   glow fades in and follows the cursor (script.js updates the
+   --mx / --my position variables on mousemove). To change the
+   colors, edit --hero-glow-default and --hero-glow-hover above.
+   ================================================================ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 88px 0 0 0;
+
+  /* Default glow position (center-ish) until the mouse moves */
+  --mx: 50%;
+  --my: 30%;
+
+  background-image: radial-gradient(var(--line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -10px -10px;
+}
+
+/* Two stacked glow layers: blue is visible by default, red fades
+   in on hover. Cross-fading opacity (rather than animating the
+   color itself) keeps this smooth in every browser. */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow);
+  background: radial-gradient(circle var(--hero-glow-size) at var(--mx) var(--my), var(--glow-color), transparent 70%);
+}
+.hero::before {
+  --glow-color: var(--hero-glow-default);
+  opacity: 1;
+}
+.hero::after {
+  --glow-color: var(--hero-glow-hover);
+  opacity: 0;
+}
+.hero:hover::before { opacity: 0; }
+.hero:hover::after { opacity: 1; }
+
+/* Keep real content above the glow layers */
+.hero-inner, .nameplate {
+  position: relative;
+  z-index: 1;
+}
 
 .hero-inner {
   max-width: var(--max-width);
@@ -207,13 +316,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-decoration: none;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: background var(--transition-fast), color var(--transition-fast),
+              border-color var(--transition-fast), transform var(--transition-fast);
   font-family: var(--font-body);
 }
+.btn:hover { transform: translateY(var(--hover-lift)); }
 
 .btn-primary { background: var(--purple); color: var(--ivory); }
 .btn-primary:hover { background: var(--purple-deep); }
-.btn-primary:disabled { background: var(--line); color: var(--ink-soft); cursor: not-allowed; }
+.btn-primary:disabled { background: var(--line); color: var(--ink-soft); cursor: not-allowed; transform: none; }
 
 .btn-outline {
   background: transparent;
@@ -254,9 +365,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--ivory);
 }
 
-/* ============================================
-   PAGE HEADER (sub-pages)
-   ============================================ */
+/* ================================================================
+   PAGE HEADER
+   ================================================================ */
 .page-header {
   padding: 72px 0 48px 0;
   border-bottom: 1px solid var(--line);
@@ -274,9 +385,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin: 0;
 }
 
-/* ============================================
-   HIGHLIGHT CARDS (home)
-   ============================================ */
+/* ================================================================
+   HIGHLIGHT CARDS
+   ================================================================ */
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -291,6 +402,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex;
   flex-direction: column;
   gap: 10px;
+  /* opacity/transform here are for scroll-reveal;
+     transform/box-shadow are for the hover lift below */
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium),
+              opacity var(--transition-slow);
+}
+.feature-card:hover {
+  transform: translateY(var(--hover-lift));
+  box-shadow: 0 10px 24px rgba(60, 42, 92, 0.08);
 }
 
 .card-tag {
@@ -310,16 +429,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   text-align: center;
 }
 .section-footer-link a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 600;
   color: var(--purple);
   text-decoration: none;
   border-bottom: 1.5px solid var(--purple);
   padding-bottom: 2px;
 }
+.section-footer-link a .arrow {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+.section-footer-link a:hover .arrow {
+  transform: translateX(4px);
+}
 
-/* ============================================
+/* ================================================================
    ABOUT PAGE
-   ============================================ */
+   ================================================================ */
 .about-grid {
   display: grid;
   grid-template-columns: 260px 1fr;
@@ -340,7 +469,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
+  transition: border-color var(--transition-fast);
 }
+.photo-placeholder:hover { border-color: var(--blue); }
+
+/* Smaller landscape variant, used inside expanded Experience cards */
+.photo-placeholder.small { aspect-ratio: 16/9; }
 
 .about-copy p { color: var(--ink-soft); }
 .about-copy p:first-of-type { color: var(--ink); }
@@ -366,7 +500,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 50%;
   background: var(--green);
   border: 3px solid var(--ivory-deep);
+  transition: transform var(--transition-fast);
 }
+.timeline-item:hover .timeline-marker { transform: scale(1.3); }
 
 .timeline-date {
   font-family: var(--font-mono);
@@ -386,9 +522,53 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .timeline-content p:not(.timeline-meta) { color: var(--ink-soft); margin: 0; }
 
-/* ============================================
-   ACHIEVEMENTS PAGE
-   ============================================ */
+/* ================================================================
+   ICON BADGES
+   ================================================================ */
+.icon-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--ivory-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--purple);
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+.icon-badge svg { width: 20px; height: 20px; }
+.icon-badge.i-green { color: var(--green); }
+.icon-badge.i-blue { color: var(--blue); }
+
+.achieve-card:hover .icon-badge,
+.feature-card:hover .icon-badge {
+  transform: scale(1.08);
+}
+
+/* Left-border accent colors — pick the one that matches the
+   card's category (blue = professional experience,
+   green = robotics/technical, purple = leadership, gold = award) */
+.achieve-card.accent-blue,
+.feature-card.accent-blue { border-left: 3px solid var(--blue); }
+.achieve-card.accent-green,
+.feature-card.accent-green { border-left: 3px solid var(--green); }
+.achieve-card.accent-purple,
+.feature-card.accent-purple { border-left: 3px solid var(--purple); }
+.achieve-card.accent-gold { border-left: 3px solid #B8860B; }
+
+/* "featured" gives a card a subtle tinted background + thicker
+   accent border, for the one item you want to stand out most
+   (currently used on the Araya internship) */
+.achieve-card.featured,
+.feature-card.featured {
+  background: linear-gradient(135deg, var(--card) 55%, #EDF1F8 100%);
+  border-left-width: 4px;
+}
+
+/* ================================================================
+   ACHIEVEMENTS / EXPERIENCE CARDS
+   ================================================================ */
 .achieve-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -403,12 +583,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transition: transform var(--transition-medium), box-shadow var(--transition-medium),
+              opacity var(--transition-slow);
+}
+.achieve-card:hover {
+  transform: translateY(var(--hover-lift));
+  box-shadow: 0 10px 24px rgba(60, 42, 92, 0.08);
 }
 
 .achieve-top {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
   gap: 12px;
 }
 
@@ -445,9 +631,52 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 14.5px;
 }
 
-/* ============================================
+/* --- Expandable "add more detail" section inside a card ---
+   Uses the native <details>/<summary> element, so it works with
+   no JavaScript and is keyboard/screen-reader accessible. */
+.achieve-expand {
+  margin-top: 4px;
+  border-top: 1px solid var(--line);
+  padding-top: 10px;
+}
+
+.achieve-expand summary {
+  list-style: none;             /* hide the default triangle marker */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--purple);
+  transition: color var(--transition-fast);
+}
+.achieve-expand summary::-webkit-details-marker { display: none; } /* Safari/Chrome */
+.achieve-expand summary:hover { color: var(--purple-deep); }
+
+.achieve-expand summary .chevron {
+  transition: transform var(--transition-fast);
+}
+.achieve-expand[open] summary .chevron { transform: rotate(180deg); }
+
+/* Swap the label text depending on open/closed state via CSS,
+   so no JavaScript is needed to update the button text */
+.achieve-expand summary .label-closed { display: inline; }
+.achieve-expand summary .label-open { display: none; }
+.achieve-expand[open] summary .label-closed { display: none; }
+.achieve-expand[open] summary .label-open { display: inline; }
+
+.achieve-expand-body {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ================================================================
    CONTACT PAGE
-   ============================================ */
+   ================================================================ */
 .contact { background: var(--purple-deep); color: var(--ivory); }
 .contact h1, .contact h2 { color: var(--ivory); }
 
@@ -473,9 +702,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: 16px 22px;
   border-radius: var(--radius);
   min-width: 220px;
-  transition: border-color 0.15s ease, background 0.15s ease;
+  transition: border-color var(--transition-fast), background var(--transition-fast),
+              transform var(--transition-fast);
 }
-.contact-link:hover { border-color: var(--blue); background: rgba(67,102,156,0.15); }
+.contact-link:hover {
+  border-color: var(--blue);
+  background: rgba(67,102,156,0.15);
+  transform: translateY(var(--hover-lift));
+}
 
 .contact-label {
   font-family: var(--font-mono);
@@ -513,14 +747,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-family: var(--font-body);
   font-size: 14.5px;
   resize: vertical;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
 }
+.form-row input:hover, .form-row textarea:hover { border-color: rgba(255,255,255,0.4); }
 .form-row input::placeholder, .form-row textarea::placeholder { color: #8F82AC; }
 
 .form-note { font-size: 12.5px; color: #8F82AC; margin: 0; }
 
-/* ============================================
+/* ================================================================
    FOOTER
-   ============================================ */
+   ================================================================ */
 .site-footer {
   background: var(--purple-deep);
   color: #8F82AC;
@@ -535,9 +771,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-top: 1px solid var(--line);
 }
 
-/* ============================================
+/* ================================================================
    RESPONSIVE
-   ============================================ */
+   ================================================================ */
 @media (max-width: 800px) {
   .main-nav { display: none; }
   .nav-toggle { display: flex; }
