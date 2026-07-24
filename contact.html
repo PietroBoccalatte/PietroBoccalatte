@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Pietro Boccalatte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,450;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="monogram" aria-label="Home">PB</a>
+    <nav class="main-nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="achievements.html">Achievements</a>
+      <a href="contact.html" class="nav-cta active">Contact</a>
+    </nav>
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<section class="section contact">
+  <div class="section-inner contact-inner">
+    <p class="section-kicker light">Contact</p>
+    <h1>Let's talk</h1>
+    <p class="contact-copy">Send me an email or a DM! lmk what's up</p>
+
+    <div class="contact-details">
+      <a href="mailto:pietro.a.f.boccalatte@gmail.com" class="contact-link">
+        <span class="contact-label">Email</span>
+        <span class="contact-value">pietro.a.f.boccalatte@gmail.com</span>
+      </a>
+      <a href="https://www.linkedin.com/in/pietro-boccalatte-a402203b8" target="_blank" rel="noopener" class="contact-link">
+        <span class="contact-label">LinkedIn</span>
+        <span class="contact-value">Pietro Boccalatte</span>
+      </a>
+      <a href="https://github.com/PietroBoccalatte" target="_blank" rel="noopener" class="contact-link">
+        <span class="contact-label">GitHub</span>
+        <span class="contact-value">Pietro Boccalatte</span>
+      </a>
+    </div>
+
+    <form class="contact-form" onsubmit="return false;">
+      <div class="form-row">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name">
+      </div>
+      <div class="form-row">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Your email">
+      </div>
+      <div class="form-row">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" placeholder="Your message"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" disabled title="Connect this form to a service like Formspree to activate it">Send message</button>
+      <p class="form-note">Form not yet connected — wire it up to a service like Formspree, or use the email link above.</p>
+    </form>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <p>&copy; 2026 Pietro Boccalatte.</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
